@@ -1,0 +1,356 @@
+/* экран */
+.screen-panel {
+  height: 691px;
+  display: flex;
+  flex-direction: column;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(180deg, #b8f0fb 0%, #8fdcf8 50%, #5dbdf8 100%) border-box;
+  overflow: hidden;
+}
+.rec-bar {
+  height: 86px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  padding-bottom: 2px;
+}
+#recBtn {
+  width: 164px;
+  height: 49px;
+}
+
+#recBtn.active span::before {
+  content: '';
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px #fff;
+  vertical-align: 1px;
+}
+.time {
+  width: 80px;
+  height: 49px;
+  font-variant-numeric: tabular-nums;
+  cursor: default;
+}
+
+.screen {
+  position: relative;
+  flex: none;
+  height: 468px;
+  overflow: hidden;
+  container-type: size;
+  background: linear-gradient(
+    180deg,
+    #96e3ff 0%,
+    #94e2ff 22%,
+    #7dd3fe 52%,
+    #52bafd 100%
+  );
+}
+.screen-rays {
+  position: absolute;
+  inset: -20% -30% 0;
+  background: repeating-linear-gradient(
+    105deg,
+    rgba(255, 255, 255, 0.13) 0 22px,
+    rgba(255, 255, 255, 0) 22px 70px
+  );
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    transparent 80%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    transparent 80%
+  );
+  animation: rays 14s ease-in-out infinite alternate;
+}
+@keyframes rays {
+  to {
+    transform: translateX(60px);
+  }
+}
+.screen-bubbles {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  transition: opacity 1s;
+}
+.screen.alive .screen-bubbles {
+  opacity: 1;
+}
+.screen-bubbles i {
+  position: absolute;
+  bottom: -14px;
+  border-radius: 50%;
+  border: 1.2px solid rgba(255, 255, 255, 0.85);
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.7) 0 18%,
+    transparent 30%
+  );
+  animation: rise linear infinite;
+}
+@keyframes rise {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(var(--sway), -500px);
+    opacity: 0;
+  }
+}
+.actor {
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.82);
+  transition:
+    opacity 0.7s ease,
+    transform 0.8s cubic-bezier(0.3, 1.25, 0.5, 1),
+    left 1s cubic-bezier(0.45, 0, 0.25, 1),
+    top 1s cubic-bezier(0.45, 0, 0.25, 1),
+    width 1s cubic-bezier(0.45, 0, 0.25, 1);
+  pointer-events: none;
+}
+.actor.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.actor img {
+  width: 100%;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.55));
+}
+.actor .swim {
+  animation: bob 5s ease-in-out infinite alternate;
+}
+.actor-whale .swim {
+  animation: whaleSwim 6.5s ease-in-out infinite alternate;
+}
+.actor-coral .swim {
+  animation: shellBreathe 3.6s ease-in-out infinite alternate;
+}
+.actor-siren {
+  z-index: 3;
+}
+@keyframes bob {
+  from {
+    transform: translateY(-6px) rotate(-1.2deg);
+  }
+  to {
+    transform: translateY(6px) rotate(1.2deg);
+  }
+}
+@keyframes whaleSwim {
+  from {
+    transform: translate(-8px, 4px) rotate(2deg);
+  }
+  to {
+    transform: translate(8px, -6px) rotate(-2.5deg);
+  }
+}
+@keyframes shellBreathe {
+  from {
+    transform: scale(0.98);
+  }
+  to {
+    transform: scale(1.03) translateY(-3px);
+  }
+}
+
+.wave-strip {
+  height: 49px;
+  flex: none;
+  background: #fff;
+}
+#scope {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.cast {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 2px solid #6cc6f8;
+}
+.cast button {
+  font-size: 19px;
+  color: var(--ink);
+  text-shadow: 0 0 6px var(--glow);
+  transition:
+    background 0.35s,
+    color 0.35s,
+    text-shadow 0.35s;
+  position: relative;
+}
+.cast button + button {
+  border-left: 2px solid #b3ebf8;
+}
+.cast button:hover {
+  background: #f1fbff;
+}
+.cast button.active {
+  background: linear-gradient(180deg, #5cc0fd 0%, #94e2ff 100%);
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.95);
+}
+.cast button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 22px rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  pointer-events: none;
+}
+.cast button.active::after {
+  animation: castGlow 1.4s ease-in-out infinite alternate;
+}
+@keyframes castGlow {
+  to {
+    opacity: 1;
+  }
+}
+.cast button.muted span {
+  opacity: 0.45;
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+}
+
+/* ---------- Пузыри на экране, которые можно лопать ---------- */
+.pop-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+.pop-bubble {
+  position: absolute;
+  bottom: calc(var(--size) * -1.2);
+  width: var(--size);
+  height: var(--size);
+  margin-left: calc(var(--size) / -2);
+  pointer-events: auto;
+  animation: popRise var(--rise) linear forwards;
+}
+.pop-bubble i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1.6px solid rgba(255, 255, 255, 0.95);
+  background:
+    radial-gradient(circle at 32% 28%, #fff 0 9%, rgba(255, 255, 255, 0) 16%),
+    radial-gradient(
+      circle at 70% 76%,
+      rgba(255, 255, 255, 0.7) 0 5%,
+      rgba(255, 255, 255, 0) 9%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.04) 55%,
+      rgba(255, 255, 255, 0.35) 80%,
+      rgba(200, 245, 255, 0.6) 100%
+    );
+  box-shadow:
+    0 0 8px rgba(255, 255, 255, 0.55),
+    inset 0 0 6px rgba(255, 255, 255, 0.5);
+  animation: popWobble var(--wobble) ease-in-out infinite alternate;
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
+}
+.pop-bubble:hover i {
+  box-shadow:
+    0 0 14px rgba(255, 255, 255, 0.9),
+    inset 0 0 8px rgba(255, 255, 255, 0.7);
+}
+.pop-bubble.popped i {
+  animation: none;
+  transform: scale(1.45);
+  opacity: 0;
+}
+@keyframes popRise {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--drift), calc(-100cqh - var(--size) * 1.4));
+    opacity: 0;
+  }
+}
+@keyframes popWobble {
+  from {
+    transform: translateX(-6px) scale(1, 0.96);
+  }
+  to {
+    transform: translateX(6px) scale(0.96, 1.02);
+  }
+}
+.pop-ring {
+  position: absolute;
+  z-index: 5;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  transform: translate(-50%, -50%) scale(0.6);
+  pointer-events: none;
+  animation: popRing 0.45s ease-out forwards;
+}
+@keyframes popRing {
+  to {
+    transform: translate(-50%, -50%) scale(1.9);
+    opacity: 0;
+    border-width: 0.5px;
+  }
+}
+.pop-drop {
+  position: absolute;
+  z-index: 5;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+  animation: popDrop 0.5s ease-out forwards;
+}
+@keyframes popDrop {
+  to {
+    transform: translate(var(--dx), var(--dy)) scale(0.3);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .actor .swim,
+  .screen-rays,
+  .pop-bubble i {
+    animation: none;
+  }
+}

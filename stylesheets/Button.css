@@ -1,0 +1,164 @@
+/* ---------- Кнопки ---------- */
+.Button {
+  height: 47px;
+  border-radius: 24px;
+  border: 3px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    var(--rim) border-box;
+  color: var(--ink);
+  font-size: 22px;
+  text-shadow: var(--ink-glow);
+  box-shadow:
+    0 0 6px rgba(120, 210, 255, 0.35),
+    inset 0 0 6px rgba(150, 220, 255, 0.25);
+  transition:
+    box-shadow 0.2s,
+    transform 0.1s,
+    filter 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.Button:hover {
+  box-shadow:
+    0 0 0 3px rgba(141, 222, 255, 0.35),
+    0 2px 14px rgba(82, 186, 253, 0.3);
+}
+.Button:active {
+  transform: scale(0.97);
+}
+.Button.active,
+.Button.solid {
+  background:
+    var(--fill-solid) padding-box,
+    var(--rim-solid) border-box;
+  color: #fff;
+  text-shadow: var(--white-glow);
+}
+.Button.flash {
+  animation: flash 0.35s ease;
+}
+@keyframes flash {
+  50% {
+    box-shadow:
+      0 0 0 6px rgba(141, 222, 255, 0.5),
+      0 0 22px rgba(82, 186, 253, 0.6);
+  }
+}
+#dj,
+#recBtn,
+.RoundButton.play {
+  position: relative;
+}
+#dj::after,
+#recBtn::after,
+.RoundButton.play::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: inherit;
+  box-shadow:
+    0 0 0 4px rgba(141, 222, 255, 0.45),
+    0 0 22px rgba(82, 186, 253, 0.6);
+  opacity: 0;
+  pointer-events: none;
+}
+#dj.active::after,
+#recBtn.active::after,
+.RoundButton.play.active::after {
+  animation: djPulse 1.6s ease-in-out infinite;
+}
+@keyframes djPulse {
+  50% {
+    opacity: 1;
+  }
+}
+
+.RoundButton {
+  width: 49px;
+  height: 49px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background:
+    var(--fill-solid) padding-box,
+    var(--rim-solid) border-box;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 10px rgba(82, 186, 253, 0.2);
+  transition:
+    box-shadow 0.2s,
+    transform 0.1s;
+}
+.RoundButton:hover {
+  box-shadow:
+    0 0 0 3px rgba(141, 222, 255, 0.4),
+    0 2px 12px rgba(82, 186, 253, 0.35);
+}
+.RoundButton:active {
+  transform: scale(0.94);
+}
+.RoundButton svg {
+  width: 56%;
+  height: 56%;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+}
+
+.SquareButton {
+  width: 133px;
+  height: 83px;
+  border-radius: 18px;
+  border: 2px solid transparent;
+  background:
+    var(--fill-solid) padding-box,
+    var(--rim-solid) border-box;
+  color: #fff;
+  font-size: 18px;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.85);
+  box-shadow: 0 3px 12px rgba(82, 186, 253, 0.22);
+  position: relative;
+  transition:
+    box-shadow 0.2s,
+    transform 0.1s,
+    filter 0.2s;
+}
+.SquareButton:hover {
+  filter: brightness(1.04);
+  box-shadow:
+    0 0 0 3px rgba(141, 222, 255, 0.4),
+    0 3px 14px rgba(82, 186, 253, 0.35);
+}
+.SquareButton:active {
+  transform: scale(0.97);
+}
+.SquareButton.active {
+  background:
+    var(--btn-active) padding-box,
+    linear-gradient(180deg, #5cc0fd, #2f9ff3) border-box;
+  box-shadow:
+    inset 0 3px 10px rgba(0, 70, 140, 0.35),
+    0 0 16px rgba(82, 186, 253, 0.55);
+}
+.SquareButton::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+.SquareButton.active::after {
+  background: #fff;
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.9);
+}

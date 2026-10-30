@@ -1,0 +1,34 @@
+/* volume */
+.volume-panel {
+  height: 426px;
+}
+.volume-panel .heading {
+  height: 82px;
+}
+.volume-panel .deco {
+  width: 400px;
+  margin-top: -6px;
+}
+.mix-grid {
+  display: grid;
+  grid-template-columns: 415px 415px;
+  justify-content: center;
+  column-gap: 113px;
+  row-gap: 12px;
+  margin-top: -12px;
+}
+#mix-D {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: 415px;
+}
+.mix-title {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  margin-bottom: 7px;
+  text-shadow: var(--ink-glow);
+}
+.mix .strip-row {
+  margin: 12px 0 0;
+}

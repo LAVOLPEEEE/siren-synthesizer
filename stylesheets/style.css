@@ -1,0 +1,27 @@
+/* Все стили подключаются здесь, как в ADC-GID-26-27 (tutorial_7/style.css) */
+@import 'reset.css';
+@import 'vars.css';
+@import 'fonts.css';
+@import 'basics.css';
+
+/* Компоненты */
+@import 'Button.css';
+@import 'ToggleButtonSet.css';
+@import 'Knob.css';
+@import 'Slider.css';
+@import 'Steps.css';
+@import 'Panel.css';
+
+/* Блоки страницы */
+@import 'Header.css';
+@import 'Voice.css';
+@import 'Screen.css';
+@import 'Siren.css';
+@import 'Sea.css';
+@import 'Volume.css';
+@import 'Sequencer.css';
+@import 'Welcome.css';
+@import 'Effects.css';
+
+/* Планшет и телефон */
+@import 'adaptive.css';

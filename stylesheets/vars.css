@@ -1,0 +1,29 @@
+/* Цвета и градиенты дизайна — используются во всех компонентах */
+
+:root {
+  --deep: #52bafd;
+  --blue: #5cc0fd;
+  --sky: #8ddeff;
+  --ice: #c5faf4;
+  --line: #8fdcf8;
+  --line-soft: #b5effb;
+  --text: #5ec3fc;
+  --glow: rgba(94, 195, 252, 0.6);
+  --btn: linear-gradient(180deg, #52b9fd 0%, #8ddeff 100%);
+  --btn-active: linear-gradient(180deg, #2f9ff3 0%, #5cc0fd 100%);
+  /* обводка «заготовок»: светлая сверху, насыщенно-голубая снизу */
+  --rim: linear-gradient(
+    180deg,
+    #aeeafc 0%,
+    #86d4fb 40%,
+    #5db8f7 75%,
+    #4cabf3 100%
+  );
+  --rim-solid: linear-gradient(180deg, #8bd6fc 0%, #5ab6f8 60%, #3fa3f1 100%);
+  --fill-solid: linear-gradient(180deg, #4cb0fb 0%, #6cc2fc 45%, #a3e3fd 100%);
+  --ink: #55bff6;
+  --ink-glow:
+    0 0 3px rgba(85, 191, 246, 0.55), 0 0 10px rgba(85, 191, 246, 0.45);
+  --white-glow:
+    0 0 4px rgba(255, 255, 255, 0.9), 0 0 10px rgba(255, 255, 255, 0.55);
+}

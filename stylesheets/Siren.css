@@ -1,0 +1,59 @@
+/* siren */
+.siren-panel {
+  height: 428px;
+}
+.siren-panel .heading {
+  height: 90px;
+}
+.siren-panel .deco {
+  width: 612px;
+  margin-top: -4px;
+}
+.siren-body {
+  display: grid;
+  grid-template-columns: 450px 414px 405px;
+  column-gap: 36px;
+  padding-left: 10px;
+}
+.siren-panel .Steps {
+  --tube-h: 214px;
+  margin-top: 46px;
+}
+.siren-panel .Step {
+  gap: 28px;
+}
+.siren-mid .wave-box {
+  margin: 0;
+}
+.siren-mid {
+  margin-top: 4px;
+}
+.siren-mid .knobs {
+  display: flex;
+  justify-content: space-between;
+  margin: 24px -6px 0;
+  height: 82px;
+}
+.siren-mid .fader-box {
+  margin-top: 12px;
+}
+.siren-mid .strip-row {
+  margin: 12px 0 0;
+}
+.choir {
+  margin-top: 24px;
+  margin-left: 18px;
+}
+.choir .Slider {
+  margin-bottom: 13px;
+}
+.choir .title {
+  margin-bottom: 8px;
+}
+.Slider.thin .thumb {
+  transform: translateY(-52%);
+}
+.Slider.thin .body:hover .thumb,
+.Slider.thin .body.active .thumb {
+  transform: translateY(-52%) scale(1.1);
+}

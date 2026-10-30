@@ -1,0 +1,184 @@
+/* ---------- Ползунок с ракушкой ---------- */
+.Slider {
+  position: relative;
+}
+.body {
+  --p: 0;
+  --h: 24px;
+  --tw: 46px;
+  position: relative;
+  height: var(--h);
+  cursor: pointer;
+  touch-action: none;
+}
+.track {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 2.5px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    var(--rim) border-box;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(82, 186, 253, 0.14);
+}
+.fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: calc(var(--tw) / 2 + var(--p) * (100% - var(--tw)));
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle at 12px 55%,
+      transparent 2px,
+      rgba(255, 255, 255, 0.95) 2.6px,
+      transparent 3.4px
+    ),
+    radial-gradient(
+      circle at 24px 35%,
+      rgba(255, 255, 255, 0.9) 1.4px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 33px 62%,
+      transparent 1.6px,
+      rgba(255, 255, 255, 0.9) 2.2px,
+      transparent 3px
+    ),
+    radial-gradient(
+      circle at 44px 40%,
+      rgba(255, 255, 255, 0.8) 1.2px,
+      transparent 1.8px
+    ),
+    radial-gradient(
+      circle at 56px 58%,
+      rgba(255, 255, 255, 0.7) 1.2px,
+      transparent 1.8px
+    ),
+    radial-gradient(
+      circle at 70px 45%,
+      transparent 1.4px,
+      rgba(255, 255, 255, 0.6) 2px,
+      transparent 2.6px
+    ),
+    linear-gradient(90deg, #c5faf4 0%, #b5f3f6 45%, #8ddcfb 100%);
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.7);
+}
+.thumb {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--p) * (100% - var(--tw)));
+  width: var(--tw);
+  transform: translateY(-56%);
+  pointer-events: none;
+  filter: drop-shadow(0 2px 3px rgba(82, 186, 253, 0.35));
+  transition:
+    transform 0.15s,
+    filter 0.2s;
+}
+.body:hover .thumb,
+.body.active .thumb {
+  transform: translateY(-56%) scale(1.08);
+  filter: drop-shadow(0 0 6px rgba(140, 222, 255, 0.95));
+}
+.tip {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: calc(var(--tw) / 2 + var(--p) * (100% - var(--tw)));
+  transform: translateX(-50%);
+  padding: 3px 9px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(82, 186, 253, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.body.active .tip,
+.body:hover .tip {
+  opacity: 1;
+}
+.top-slider .body {
+  --h: 22px;
+  --tw: 48px;
+}
+.top-slider .fill {
+  background: linear-gradient(
+    90deg,
+    #c5faf4 0%,
+    #c3f8f4 50%,
+    #b0eff7 78%,
+    #94e1fa 100%
+  );
+  box-shadow: inset 0 3px 4px rgba(255, 255, 255, 0.55);
+}
+.Slider.thin .body {
+  --h: 15px;
+  --tw: 33px;
+}
+.title {
+  display: block;
+  font-size: 11px;
+  margin: 0 0 5px 2px;
+  color: var(--ink);
+  text-shadow: var(--ink-glow);
+}
+
+/* «Пробирка» — вертикальный ползунок высоты ноты */
+.tube .body {
+  --th: 40px;
+  width: 24px;
+  height: var(--tube-h, 236px);
+  margin: 0 auto;
+}
+.tube .track {
+  border-radius: 13px;
+  border-width: 3px;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(180deg, #9fe3fb, #74cdfb) border-box;
+  box-shadow: none;
+}
+.tube .fill {
+  top: auto;
+  right: 0;
+  width: auto;
+  height: calc(var(--th) / 2 + var(--p) * (100% - var(--th)));
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(
+    180deg,
+    #8fd9fc 0%,
+    #55c6fb 30%,
+    #7fdafc 62%,
+    #c5faf4 100%
+  );
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.6);
+  transition: height 0.12s;
+}
+.tube .bubbles {
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  width: 15px;
+  transform: translateX(-50%);
+  opacity: 0.95;
+}
+.tube .thumb {
+  left: 50%;
+  top: calc((1 - var(--p)) * (100% - var(--th)));
+  width: 47px;
+  transform: translate(-50%, -2px);
+  transition:
+    top 0.12s,
+    filter 0.2s;
+}
+.tube .body:hover .thumb,
+.tube .body.active .thumb {
+  transform: translate(-50%, -2px) scale(1.06);
+}

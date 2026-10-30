@@ -1,0 +1,69 @@
+/* Панели: рамка, шапка с заголовком, общая сетка */
+/* ---------- Панели ---------- */
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 12px;
+}
+.row {
+  display: grid;
+  gap: 14px;
+}
+.row-voices {
+  grid-template-columns: 449px 471px 448px;
+}
+.row-mix {
+  grid-template-columns: 324px 1fr;
+  gap: 13px;
+}
+.Panel {
+  position: relative;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(180deg, #92e3ff 0px, #b9edff 45px, #e9f9ff 85px, #fff 115px)
+      padding-box,
+    linear-gradient(180deg, #b8f0fb 0%, #8fdcf8 50%, #5dbdf8 100%) border-box;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.8),
+    0 4px 18px rgba(92, 192, 253, 0.16);
+}
+.heading {
+  position: relative;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.heading h2 {
+  position: relative;
+  margin: 0;
+  padding: 0 10px 6px;
+  font:
+    400 72px/1 'Melodrame',
+    serif;
+  white-space: nowrap;
+  color: #fff;
+}
+.heading h2::before {
+  color: #fff;
+  opacity: 0.95;
+  filter: blur(3.5px) drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
+}
+.heading h2::after {
+  color: transparent;
+  -webkit-text-stroke: 0.9px #fff;
+  transform: translateX(2.2px);
+}
+.sea-panel .heading h2::after {
+  transform: translate(2.2px, 1px);
+}
+.deco {
+  pointer-events: none;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.9));
+}
+.flip {
+  transform: scaleX(-1);
+}

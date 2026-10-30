@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../fonts/Quicksand-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Melodrame';
+  src: url('../fonts/Relationship-of-melodrame.ttf') format('truetype');
+  font-weight: 400;
+  font-display: block;
+}

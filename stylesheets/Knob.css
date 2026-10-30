@@ -1,0 +1,83 @@
+/* ---------- Ручка-ракушка с жемчужиной ---------- */
+.Knob {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+}
+.dial {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  cursor: ns-resize;
+  touch-action: none;
+  border-radius: 50%;
+}
+.dial svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+.dial .ring {
+  fill: none;
+  stroke-width: 6;
+}
+.dial .dot {
+  fill: #fff;
+  stroke: #74cdfa;
+  stroke-width: 2.4;
+  filter: drop-shadow(0 0 2px rgba(108, 203, 249, 0.7));
+}
+/* ракушка: 72 % кольца, жемчужина — чуть ниже центра */
+.dial .shell {
+  position: absolute;
+  left: 14%;
+  top: 13%;
+  width: 72%;
+  pointer-events: none;
+  transition:
+    transform 0.15s,
+    filter 0.2s;
+}
+.dial .shell img {
+  width: 100%;
+}
+.dial .pearl {
+  position: absolute;
+  left: 49%;
+  top: 69.2%;
+  width: 31%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition:
+    background 0.12s,
+    box-shadow 0.12s;
+}
+.dial:hover .shell,
+.dial.active .shell {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 5px rgba(140, 222, 255, 0.8));
+}
+.Knob b {
+  font-weight: 400;
+  font-size: 12px;
+  margin-top: 1px;
+  color: var(--ink);
+  text-shadow: var(--ink-glow);
+  white-space: nowrap;
+}
+.large {
+  width: 112px;
+}
+.large .dial {
+  width: 84px;
+  height: 84px;
+}
+.large .dial .ring {
+  stroke-width: 5.5;
+}
+.large b {
+  font-size: 16px;
+  margin-top: -2px;
+}

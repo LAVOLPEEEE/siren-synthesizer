@@ -1,0 +1,37 @@
+/* coral / whale */
+.voice {
+  height: 691px;
+}
+.voice .wave-box {
+  margin: 1px 18px 0;
+}
+.voice .Steps {
+  margin-top: 24px;
+}
+.voice .knobs {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1px 8px 0;
+  height: 82px;
+}
+.voice .fader-box {
+  margin: 20px 18px 0;
+}
+.strip-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 12px 18px 0;
+}
+/* панорама стоит ровно между mute и solo и не заходит на ползунок громкости */
+.strip-row .large {
+  margin-top: 0;
+}
+#panel-C .deco {
+  width: 168px;
+  margin-top: -4px;
+}
+#panel-W .deco {
+  width: 124px;
+  margin: 0 2px;
+}

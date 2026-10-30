@@ -1,0 +1,237 @@
+/* =========================================================
+   Адаптивность. fit.js ставит на body класс desktop / tablet / mobile
+   и масштабирует раскладку под ширину окна.
+   ========================================================= */
+
+/* ---------- Планшет: ширина 960 px ---------- */
+body.tablet .app {
+  width: 960px;
+  padding: 0 24px 24px;
+}
+body.tablet .top {
+  margin: 0 -24px;
+}
+body.tablet .rose {
+  width: 250px;
+}
+body.tablet .rose-l {
+  left: -95px;
+}
+body.tablet .rose-r {
+  right: -95px;
+}
+body.tablet h1 {
+  font-size: 100px;
+}
+body.tablet .top-controls {
+  margin-left: auto;
+}
+body.tablet .row-voices {
+  grid-template-columns: 1fr 1fr;
+}
+body.tablet .row-voices .screen-panel {
+  grid-column: 1 / -1;
+  order: -1;
+  height: auto;
+}
+body.tablet .screen {
+  height: 440px;
+}
+body.tablet .cast {
+  height: 80px;
+  flex: none;
+}
+body.tablet .siren-panel {
+  height: auto;
+  padding-bottom: 24px;
+}
+body.tablet .siren-panel .deco {
+  width: 330px;
+}
+body.tablet .siren-body {
+  grid-template-columns: 430px 414px;
+  column-gap: 30px;
+  padding: 0 14px 0 0;
+  row-gap: 30px;
+}
+body.tablet .choir {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 44px;
+  margin: 0 20px 0 30px;
+}
+body.tablet .row-mix {
+  grid-template-columns: 1fr;
+}
+body.tablet .sea-panel {
+  height: auto;
+  padding-bottom: 6px;
+}
+body.tablet .pads {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 60px;
+  padding: 0 30px;
+}
+body.tablet .volume-panel .deco {
+  width: 260px;
+}
+body.tablet .mix-grid {
+  column-gap: 50px;
+}
+body.tablet .seq-panel .deco {
+  width: 300px;
+}
+
+/* ---------- Телефон: одна колонка 480 px ---------- */
+
+body.mobile .app {
+  width: 480px;
+  padding: 0 12px 20px;
+}
+body.mobile .top {
+  height: auto;
+  margin: 0 -12px;
+  padding-bottom: 26px;
+  background:
+    radial-gradient(
+      ellipse 200px 220px at 0% 20%,
+      rgba(130, 212, 255, 0.9),
+      rgba(190, 236, 255, 0) 100%
+    ),
+    radial-gradient(
+      ellipse 200px 220px at 100% 20%,
+      rgba(130, 212, 255, 0.9),
+      rgba(190, 236, 255, 0) 100%
+    ),
+    linear-gradient(180deg, #f2fbff 0%, #fff 100%);
+}
+body.mobile .rose {
+  width: 170px;
+  top: -16px;
+}
+body.mobile .rose-l {
+  left: -60px;
+}
+body.mobile .rose-r {
+  right: -60px;
+}
+body.mobile h1 {
+  height: auto;
+  padding: 26px 0 10px;
+  font-size: 60px;
+}
+body.mobile .top-controls {
+  width: auto;
+  margin: 0 18px;
+}
+body.mobile .row-transport {
+  grid-template-columns: 100px 1fr 100px;
+}
+body.mobile .row-scales {
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+body.mobile .Button {
+  font-size: 16px;
+}
+
+body.mobile .row-voices,
+body.mobile .row-mix {
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+body.mobile .row-voices .screen-panel {
+  order: -1;
+}
+body.mobile .Panel {
+  width: 456px;
+}
+
+/* siren: три блока друг под другом */
+body.mobile .siren-panel {
+  height: auto;
+  padding-bottom: 22px;
+}
+body.mobile .siren-panel .deco {
+  width: 150px;
+}
+body.mobile .siren-body {
+  grid-template-columns: 1fr;
+  padding: 0 2px;
+  row-gap: 26px;
+}
+body.mobile .siren-mid,
+body.mobile .choir {
+  padding: 0 16px;
+}
+body.mobile .siren-panel .Steps {
+  margin-top: 10px;
+  --tube-h: 236px;
+}
+body.mobile .siren-panel .Step {
+  gap: 34px;
+}
+body.mobile .siren-mid .knobs {
+  margin: 24px -8px 0;
+}
+body.mobile .choir {
+  margin: 0;
+}
+
+/* sea и volume */
+body.mobile .sea-panel {
+  height: auto;
+  padding-bottom: 8px;
+}
+body.mobile .volume-panel {
+  height: auto;
+  padding-bottom: 24px;
+}
+body.mobile .volume-panel .deco {
+  width: 120px;
+}
+body.mobile .mix-grid {
+  grid-template-columns: 415px;
+  row-gap: 26px;
+}
+body.mobile #mix-D {
+  grid-column: auto;
+}
+
+/* sequencer: шаги прокручиваются вбок */
+body.mobile .seq-panel {
+  height: auto;
+  padding-bottom: 12px;
+}
+body.mobile .seq-panel .deco {
+  width: 120px;
+}
+body.mobile .seq-controls {
+  padding: 0 12px;
+  gap: 8px;
+}
+body.mobile #drumPresets {
+  flex: 1;
+  width: auto;
+}
+body.mobile .seq-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+}
+body.mobile .Sequencer {
+  width: max-content;
+  padding: 0 14px;
+}
+body.mobile .SequencerRow {
+  grid-template-columns: 84px repeat(16, 52px);
+  column-gap: 5px;
+}
+body.mobile .RowButton {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}

@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#8ddeff" />
+    <title>siren synthesizer</title>
+
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicon-32.png"
+    />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="stylesheets/style.css" />
+
+    <!-- Tone.js 14.8.49 лежит в проекте, чтобы синтезатор работал без интернета -->
+    <script src="javascript/vendor/Tone.js"></script>
+
+    <!-- Порядок важен: сначала данные и помощники, потом модули, последним — main.js -->
+    <script src="javascript/config.js"></script>
+    <script src="javascript/utilities.js"></script>
+    <script src="javascript/components.js"></script>
+    <script src="javascript/engine.js"></script>
+    <script src="javascript/state.js"></script>
+    <script src="javascript/voices.js"></script>
+    <script src="javascript/mixer.js"></script>
+    <script src="javascript/controls.js"></script>
+    <script src="javascript/choir.js"></script>
+    <script src="javascript/drums.js"></script>
+    <script src="javascript/pads.js"></script>
+    <script src="javascript/recorder.js"></script>
+    <script src="javascript/screen.js"></script>
+    <script src="javascript/pops.js"></script>
+    <script src="javascript/wave.js"></script>
+    <script src="javascript/dj.js"></script>
+    <script src="javascript/effects.js"></script>
+    <script src="javascript/welcome.js"></script>
+    <script src="javascript/layout.js"></script>
+    <script src="javascript/main.js"></script>
+  </head>
+
+  <body>
+    <div class="app" id="app">
+      <!-- ШАПКА -->
+      <header class="top">
+        <img class="rose rose-l" src="assets/rose-shell.svg" alt="" />
+        <img class="rose rose-r" src="assets/rose-shell.svg" alt="" />
+        <div class="notes" aria-hidden="true"></div>
+        <h1 data-text="siren synthesizer">siren synthesizer</h1>
+        <div class="top-controls">
+          <div class="top-row row-transport">
+            <button
+              type="button"
+              class="Button"
+              id="swim"
+              title="запуск трёх голосов"
+            >
+              <span>swim</span>
+            </button>
+            <button
+              type="button"
+              class="Button"
+              id="dj"
+              title="автопилот: всё сразу и само меняется"
+            >
+              <span>DJ: <b class="dj-name">MEDUZA</b></span>
+            </button>
+            <button
+              type="button"
+              class="Button"
+              id="random"
+              title="новый рисунок для всех голосов"
+            >
+              <span>random</span>
+            </button>
+          </div>
+          <div class="top-row row-scales" id="scales"></div>
+          <div class="top-slider" id="tempo"></div>
+          <div class="top-slider" id="master"></div>
+        </div>
+      </header>
+
+      <main>
+        <!-- coral · экран · whale -->
+        <div class="row row-voices">
+          <section class="Panel voice" id="panel-C">
+            <div class="heading">
+              <img class="deco deco-l" src="assets/deco-swirl.svg" alt="" />
+              <h2 data-text="coral">coral</h2>
+              <img
+                class="deco deco-r flip"
+                src="assets/deco-swirl.svg"
+                alt=""
+              />
+            </div>
+            <div class="wave-box"></div>
+            <div class="Steps"></div>
+            <div class="knobs"></div>
+            <div class="fader-box"></div>
+            <div class="strip-row"></div>
+          </section>
+
+          <section class="Panel screen-panel">
+            <div class="rec-bar">
+              <button
+                type="button"
+                class="Button solid"
+                id="recBtn"
+                title="начать запись"
+              >
+                <span>recording</span>
+              </button>
+              <button
+                type="button"
+                class="RoundButton"
+                id="recDownload"
+                title="скачать запись в WAV"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 4v10m0 0-4-4m4 4 4-4M5 15v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3"
+                  />
+                </svg>
+              </button>
+              <button
+                type="button"
+                class="RoundButton"
+                id="recAgain"
+                title="стереть запись и начать новую"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path d="M19 12a7 7 0 1 1-2.05-4.95" />
+                  <path d="M17.5 3.5v4h-4" />
+                </svg>
+              </button>
+              <output class="Button solid time" id="recTime">0:00</output>
+            </div>
+            <div class="screen" id="stage">
+              <div class="screen-rays"></div>
+              <div class="screen-bubbles"></div>
+              <div class="pop-layer"></div>
+            </div>
+            <div class="wave-strip"><canvas id="scope"></canvas></div>
+            <div class="cast">
+              <button
+                type="button"
+                id="cast-whale"
+                title="кит: горит, когда поёт; клик — выкл/вкл"
+              >
+                <span>whale</span>
+              </button>
+              <button
+                type="button"
+                id="cast-coral"
+                title="коралл: горит, когда поёт; клик — выкл/вкл"
+              >
+                <span>coral</span>
+              </button>
+              <button
+                type="button"
+                id="cast-siren"
+                title="сирена: горит, когда поёт; клик — выкл/вкл"
+              >
+                <span>siren</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="Panel voice" id="panel-W">
+            <div class="heading">
+              <img class="deco deco-l flip" src="assets/deco-orca.svg" alt="" />
+              <h2 data-text="whale">whale</h2>
+              <img class="deco deco-r" src="assets/deco-orca.svg" alt="" />
+            </div>
+            <div class="wave-box"></div>
+            <div class="Steps"></div>
+            <div class="knobs"></div>
+            <div class="fader-box"></div>
+            <div class="strip-row"></div>
+          </section>
+        </div>
+
+        <!-- siren -->
+        <section class="Panel voice siren-panel" id="panel-A">
+          <div class="heading">
+            <img class="deco deco-l" src="assets/deco-curls.svg" alt="" />
+            <h2 data-text="siren">siren</h2>
+            <img class="deco deco-r flip" src="assets/deco-curls.svg" alt="" />
+          </div>
+          <div class="siren-body">
+            <div class="Steps"></div>
+            <div class="siren-mid">
+              <div class="wave-box"></div>
+              <div class="knobs"></div>
+              <div class="fader-box"></div>
+              <div class="strip-row"></div>
+            </div>
+            <div class="choir" id="choir"></div>
+          </div>
+        </section>
+
+        <!-- sea · volume -->
+        <div class="row row-mix">
+          <section class="Panel sea-panel">
+            <div class="heading">
+              <img class="deco deco-l" src="assets/deco-fish.svg" alt="" />
+              <h2 data-text="sea">sea</h2>
+              <img class="deco deco-r" src="assets/deco-fish.svg" alt="" />
+            </div>
+            <div class="pads" id="pads"></div>
+          </section>
+
+          <section class="Panel volume-panel">
+            <div class="heading">
+              <img class="deco deco-l" src="assets/deco-stars.svg" alt="" />
+              <h2 data-text="volume">volume</h2>
+              <img
+                class="deco deco-r flip"
+                src="assets/deco-stars.svg"
+                alt=""
+              />
+            </div>
+            <div class="mix-grid">
+              <div class="mix" id="mix-V">
+                <span class="mix-title">sirens</span>
+                <div class="fader-box"></div>
+                <div class="strip-row"></div>
+              </div>
+              <div class="mix" id="mix-P">
+                <span class="mix-title">sounds of the sea</span>
+                <div class="fader-box"></div>
+                <div class="strip-row"></div>
+              </div>
+              <div class="mix" id="mix-D">
+                <span class="mix-title">rhythm</span>
+                <div class="fader-box"></div>
+                <div class="strip-row"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- sequencer -->
+        <section class="Panel seq-panel">
+          <div class="heading">
+            <img class="deco deco-l" src="assets/deco-bubbles.svg" alt="" />
+            <h2 data-text="sequencer">sequencer</h2>
+            <img
+              class="deco deco-r flip"
+              src="assets/deco-bubbles.svg"
+              alt=""
+            />
+          </div>
+          <div class="seq-controls">
+            <button
+              type="button"
+              class="RoundButton play"
+              id="drumsToggle"
+              title="включить ритм"
+            >
+              <svg viewBox="0 0 24 24">
+                <path class="i-play" d="M9 7.5v9l7.5-4.5z" />
+                <path class="i-stop" d="M8.5 8.5h7v7h-7z" />
+              </svg>
+            </button>
+            <div id="drumPresets"></div>
+            <button
+              type="button"
+              class="RoundButton"
+              id="drumClear"
+              title="очистить рисунок"
+            >
+              <svg viewBox="0 0 24 24">
+                <path d="M6 8h12l-1 11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L6 8z" />
+                <path d="M4.5 6h15M10 3.5h4M10 11v6.5M14 11v6.5" />
+              </svg>
+            </button>
+          </div>
+          <div class="seq-scroll"><div class="Sequencer" id="drums"></div></div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Приветствие: спрашиваем имя, оно встаёт на кнопку DJ -->
+    <div
+      class="welcome"
+      id="welcome"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="welcomeTitle"
+    >
+      <form class="Panel welcome-card" id="welcomeForm" autocomplete="off">
+        <div class="heading">
+          <img class="deco deco-l" src="assets/deco-swirl.svg" alt="" />
+          <h2 id="welcomeTitle" data-text="hello">hello</h2>
+          <img class="deco deco-r flip" src="assets/deco-swirl.svg" alt="" />
+        </div>
+        <label class="welcome-question" for="welcomeName"
+          >what's your name?</label
+        >
+        <input
+          class="Button welcome-input"
+          id="welcomeName"
+          maxlength="14"
+          placeholder="your name"
+          spellcheck="false"
+        />
+        <div class="welcome-buttons">
+          <button type="button" class="Button" id="welcomeSkip">
+            <span>skip</span>
+          </button>
+          <button type="submit" class="Button solid">
+            <span>dive in</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

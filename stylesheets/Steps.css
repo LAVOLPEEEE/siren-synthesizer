@@ -1,0 +1,49 @@
+/* ---------- Шаги мелодии ---------- */
+.Steps {
+  display: grid;
+  grid-template-columns: repeat(8, 54px);
+  justify-content: center;
+}
+.Step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 34px;
+}
+.StepButton {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(180deg, #6cc8fa, #92e6f2) border-box;
+  box-shadow: 0 0 5px rgba(120, 210, 255, 0.3);
+  display: grid;
+  place-items: center;
+  transition: transform 0.15s;
+}
+.StepButton img {
+  width: 15px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.StepButton.active {
+  background:
+    radial-gradient(circle at 50% 28%, #55bffd 0%, #8edffc 55%, #c5faf4 100%)
+      padding-box,
+    linear-gradient(180deg, #6cc8fa, #92e6f2) border-box;
+}
+.StepButton.active img {
+  opacity: 1;
+}
+.StepButton:hover {
+  transform: scale(1.1);
+}
+.StepButton.current {
+  transform: scale(1.18);
+  box-shadow:
+    0 0 0 3px rgba(141, 222, 255, 0.45),
+    0 0 12px rgba(82, 186, 253, 0.85);
+}

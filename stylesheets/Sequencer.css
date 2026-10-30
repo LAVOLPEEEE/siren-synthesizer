@@ -1,0 +1,122 @@
+/* sequencer */
+.seq-panel {
+  height: 398px;
+}
+.seq-panel .heading {
+  height: 72px;
+}
+.seq-panel .deco {
+  width: 540px;
+  margin-top: -2px;
+}
+.seq-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+#drumPresets {
+  width: 405px;
+}
+.seq-controls .RoundButton {
+  width: 32px;
+  height: 32px;
+}
+.seq-controls .RoundButton.play {
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    var(--rim) border-box;
+}
+.RoundButton.play svg {
+  width: 76%;
+  height: 76%;
+  stroke: none;
+  filter: none;
+}
+.RoundButton.play .i-play {
+  fill: var(--blue);
+}
+.RoundButton.play .i-stop {
+  display: none;
+  fill: #fff;
+}
+.RoundButton.play.active {
+  background:
+    var(--fill-solid) padding-box,
+    var(--rim-solid) border-box;
+}
+.RoundButton.play.active .i-play {
+  display: none;
+}
+.RoundButton.play.active .i-stop {
+  display: block;
+}
+.seq-scroll {
+  margin-top: 21px;
+}
+.Sequencer {
+  padding: 0 21px;
+}
+.SequencerRow {
+  display: grid;
+  grid-template-columns: 100px repeat(16, minmax(0, 1fr));
+  column-gap: 6px;
+  margin-bottom: 11px;
+}
+.RowButton {
+  height: 32px;
+  margin-right: 2px;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  background:
+    var(--fill-solid) padding-box,
+    var(--rim-solid) border-box;
+  color: #fff;
+  font-size: 13px;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 8px rgba(82, 186, 253, 0.2);
+  transition:
+    transform 0.1s,
+    box-shadow 0.2s;
+}
+.RowButton:hover {
+  box-shadow: 0 0 0 3px rgba(141, 222, 255, 0.4);
+}
+.RowButton:active {
+  transform: scale(0.95);
+}
+.BeatButton {
+  height: 32px;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    var(--rim) border-box;
+  box-shadow: 0 2px 7px rgba(82, 186, 253, 0.13);
+  transition: transform 0.1s;
+}
+.BeatButton.downbeat {
+  background:
+    linear-gradient(#f2fbff, #f2fbff) padding-box,
+    var(--rim) border-box;
+}
+.BeatButton:hover {
+  box-shadow: 0 0 0 3px rgba(141, 222, 255, 0.35);
+}
+.BeatButton.active {
+  background:
+    var(--fill-solid) padding-box,
+    var(--rim-solid) border-box;
+}
+.BeatButton.current {
+  box-shadow:
+    0 0 0 3px rgba(141, 222, 255, 0.55),
+    0 0 12px rgba(82, 186, 253, 0.8);
+  transform: scale(1.06);
+}
+.BeatButton.active.current {
+  background:
+    linear-gradient(180deg, #8ae0ff, #c5faf4) padding-box,
+    linear-gradient(180deg, #8fdcfb, #52b9fd) border-box;
+}

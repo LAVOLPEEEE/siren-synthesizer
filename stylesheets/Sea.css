@@ -1,0 +1,36 @@
+/* sea */
+.sea-panel {
+  height: 426px;
+}
+.sea-panel .heading {
+  height: 82px;
+}
+.sea-panel .deco {
+  width: 92px;
+  margin: 0 4px;
+}
+.pads {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -6px;
+}
+.pad-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.pad-title {
+  font-size: 11px;
+  margin-bottom: 4px;
+  text-shadow: var(--ink-glow);
+}
+.ToggleButtonSet.pair {
+  width: 201px;
+  height: 32px;
+  border-radius: 16px;
+}
+.ToggleButtonSet.pair .glider {
+  border-radius: 16px;
+}
