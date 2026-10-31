@@ -182,3 +182,10 @@
 .tube .body.active .thumb {
   transform: translate(-50%, -2px) scale(1.06);
 }
+
+/* Подсказка с нотой над ракушкой в «пробирке» */
+.tube .tip {
+  bottom: auto;
+  left: 50%;
+  top: calc((1 - var(--p)) * (100% - var(--th)) - 30px);
+}

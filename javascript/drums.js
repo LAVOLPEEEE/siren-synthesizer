@@ -41,7 +41,7 @@ function initDrums() {
   synths.deep = new Tone.MembraneSynth({
     pitchDecay: 0.12,
     octaves: 2.5,
-    volume: 2,
+    volume: -2,
     envelope: { attack: 0.002, decay: 0.9, sustain: 0, release: 0.5 }
   }).chain(new Tone.Filter(260, 'lowpass', -24), drums.bus)
 
@@ -104,12 +104,10 @@ const DRUM_SOUNDS = {
     const { tideFilter, tidePan } = drums
 
     // Волна накатывает (фильтр раскрывается) и откатывается; панорама плывёт слева направо
-    tideFilter.frequency.cancelScheduledValues(time)
-    tideFilter.frequency.setValueAtTime(250, time)
+    moveTo(tideFilter.frequency, 250, time)
     tideFilter.frequency.exponentialRampToValueAtTime(2200, time + 1)
     tideFilter.frequency.exponentialRampToValueAtTime(400, time + 2.6)
-    tidePan.pan.cancelScheduledValues(time)
-    tidePan.pan.setValueAtTime(-0.6, time)
+    moveTo(tidePan.pan, -0.6, time)
     tidePan.pan.linearRampToValueAtTime(0.6, time + 2.6)
     drums.synths.tide.triggerAttackRelease(1, time)
   },

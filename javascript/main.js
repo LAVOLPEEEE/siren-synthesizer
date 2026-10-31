@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPopsUI()
   initWaveUI()
   initDjUI()
+  initStoryUI()
   initEffectsUI()
   initWelcomeUI()
 

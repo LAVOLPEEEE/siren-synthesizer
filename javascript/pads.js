@@ -26,16 +26,25 @@ function degreeFreq(root, maxDegree = 7) {
 }
 
 // Звук моря: out — его громкость; recipe.sources — непрерывные источники; every + play — события
+// Звук создаётся не сразу, а при первом включении (buildPad):
+// десять звуков моря, созданные заранее, нагружали бы звуковой движок, даже молча
 function makePad(level, build) {
-  const out = new Tone.Gain(0).connect(pads.bus)
-  const recipe = build(out)
-  const pad = {
-    out,
+  return {
     level,
-    sources: recipe.sources || [],
+    build,
+    out: null,
+    sources: [],
+    built: false,
     started: false,
     active: false
   }
+}
+
+function buildPad(pad) {
+  pad.out = new Tone.Gain(0).connect(pads.bus)
+  const recipe = pad.build(pad.out)
+  pad.sources = recipe.sources || []
+  pad.built = true
 
   if (recipe.every) {
     // выключенный звук событий не создаёт
@@ -43,8 +52,6 @@ function makePad(level, build) {
       if (pad.active) recipe.play(time)
     }, recipe.every).start(0)
   }
-
-  return pad
 }
 
 // Рецепты звуков: создаются в initPads(), когда движок уже готов
@@ -80,11 +87,10 @@ function createPadRows() {
               every: '2m',
               play(time) {
                 const dir = Math.random() < 0.5 ? -1 : 1
-                body.frequency.cancelScheduledValues(time)
-                body.frequency.setValueAtTime(220, time)
+                moveTo(body.frequency, 220, time)
                 body.frequency.exponentialRampToValueAtTime(1800, time + 1.8)
                 body.frequency.exponentialRampToValueAtTime(350, time + 4.4)
-                pan.pan.setValueAtTime(-0.5 * dir, time)
+                moveTo(pan.pan, -0.5 * dir, time)
                 pan.pan.linearRampToValueAtTime(0.5 * dir, time + 4.4)
                 wave.triggerAttackRelease(2.2, time)
                 foam.triggerAttackRelease(1.4, time + 0.9)
@@ -116,7 +122,7 @@ function createPadRows() {
               every: '1m',
               play(time) {
                 if (Math.random() > 0.5) return
-                pan.pan.setValueAtTime(randomBetween(-0.7, 0.7), time)
+                moveTo(pan.pan, randomBetween(-0.7, 0.7), time)
                 const start = time + pick([0, beat(1), beat(2)])
                 const count = pick([2, 3, 3])
                 const base = degreeFreq('D6', 4)
@@ -189,7 +195,7 @@ function createPadRows() {
               every: '2n',
               play(time) {
                 if (Math.random() > 0.45) return
-                pan.pan.setValueAtTime(randomBetween(-0.5, 0.5), time)
+                moveTo(pan.pan, randomBetween(-0.5, 0.5), time)
                 bell.triggerAttackRelease(
                   degreeFreq('D4', 5),
                   0.05,
@@ -363,7 +369,7 @@ function createPadRows() {
               every: '2m',
               play(time) {
                 if (Math.random() > 0.6) return
-                pan.pan.setValueAtTime(randomBetween(-0.6, 0.6), time)
+                moveTo(pan.pan, randomBetween(-0.6, 0.6), time)
                 const start = time + beat(2)
                 for (let k = 0; k < 6; k++)
                   clicks.triggerAttackRelease(
@@ -414,7 +420,7 @@ function createPadRows() {
                 // вероятность плавно качается — как накат и отлив волны
                 const wave = 0.5 + 0.5 * Math.sin(time * 0.8)
                 if (Math.random() > 0.12 + 0.5 * wave) return
-                pan.pan.setValueAtTime(randomBetween(-0.5, 0.5), time)
+                moveTo(pan.pan, randomBetween(-0.5, 0.5), time)
                 grain.triggerAttackRelease(0.02, time, randomBetween(0.3, 1))
               }
             }
@@ -439,6 +445,9 @@ function initPads() {
 }
 
 function setPad(pad, isOn) {
+  if (!isOn && !pad.built) return
+  if (!pad.built) buildPad(pad)
+
   if (isOn && !pad.started) {
     pad.sources.forEach((source) => source.start())
     pad.started = true

@@ -19,6 +19,13 @@ function createElement(tag, className, html) {
   return element
 }
 
+// Плавно перевести параметр к новому значению в момент time (за 40 мс, без щелчка).
+// Нужен там, где прошлый звук ещё не отзвучал, а мы меняем его панораму или фильтр.
+function moveTo(param, value, time, seconds = 0.04) {
+  param.cancelAndHoldAtTime(time)
+  param.linearRampToValueAtTime(value, time + seconds)
+}
+
 // Плавно изменить параметр звука прямо сейчас.
 // Резкий скачок значения даёт щелчок, а за 60 мс параметр доезжает без него.
 function glide(param, value, seconds = 0.06) {

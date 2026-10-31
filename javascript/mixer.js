@@ -81,7 +81,7 @@ function initMixerUI() {
   })
 
   // Общая громкость — второй ползунок наверху
-  createSlider(document.getElementById('master'), {
+  topSliders.master = createSlider(document.getElementById('master'), {
     hint: 'общая громкость',
     min: -40,
     max: 0,

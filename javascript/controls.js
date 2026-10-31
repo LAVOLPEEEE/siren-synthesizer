@@ -3,6 +3,9 @@
 
 const TEMPO = { min: 50, max: 160, value: 84 }
 
+// ползунки наверху — ими управляет композиция (story.js)
+const topSliders = { tempo: null, master: null }
+
 function setVoicesRunning(isRunning) {
   const swimButton = document.getElementById('swim')
 
@@ -22,6 +25,11 @@ function setVoicesRunning(isRunning) {
 // Гаммы — три отдельные кнопки, из которых активна одна
 function selectScale(index) {
   scaleIndex = index
+
+  // подсказки на пробирках показывают ноты нового лада
+  VOICES.forEach((voice) => {
+    voice.sliders.forEach((slider) => slider.setValue(slider.getValue(), true))
+  })
 
   document.querySelectorAll('#scales .Button').forEach((button, i) => {
     button.classList.toggle('active', i === index)
@@ -55,7 +63,7 @@ function initControlsUI() {
   })
 
   // Темп — первый ползунок наверху; фильтр хора «дышит» в темпе, поэтому пересчитываем и его
-  createSlider(document.getElementById('tempo'), {
+  topSliders.tempo = createSlider(document.getElementById('tempo'), {
     hint: 'темп (BPM)',
     min: TEMPO.min,
     max: TEMPO.max,

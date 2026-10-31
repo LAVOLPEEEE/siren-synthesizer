@@ -354,3 +354,109 @@
     animation: none;
   }
 }
+
+/* ---------- Композиция: кнопка и названия глав ---------- */
+.story-button {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  top: 16px;
+  transform: translateX(-50%);
+  height: 34px;
+  padding: 0 18px;
+  border-radius: 17px;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.28);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 15px;
+  text-shadow: 0 0 6px rgba(40, 140, 220, 0.6);
+  box-shadow: 0 2px 12px rgba(40, 140, 220, 0.25);
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+.story-button span::before {
+  content: '';
+  display: inline-block;
+  margin-right: 8px;
+  border-style: solid;
+  border-width: 5px 0 5px 8px;
+  border-color: transparent transparent transparent #fff;
+  vertical-align: 0;
+}
+.story-button:hover {
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.35),
+    0 2px 14px rgba(40, 140, 220, 0.35);
+}
+.story-button.active span::before {
+  width: 9px;
+  height: 9px;
+  border: 0;
+  border-radius: 2px;
+  background: #fff;
+}
+.story-title {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  bottom: 26px;
+  text-align: center;
+  color: #fff;
+  pointer-events: none;
+  opacity: 0;
+}
+.story-title::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  width: 360px;
+  height: 150px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(25, 120, 205, 0.45) 0%,
+    rgba(25, 120, 205, 0) 70%
+  );
+}
+.story-title small {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 18px;
+  letter-spacing: 6px;
+  text-shadow: 0 0 6px rgba(40, 140, 220, 0.7);
+}
+.story-title span {
+  font:
+    400 54px/1 'Melodrame',
+    serif;
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.95),
+    0 0 14px rgba(110, 205, 255, 0.95),
+    0 0 26px rgba(60, 170, 250, 0.7);
+}
+.story-title.visible {
+  animation: chapterIn 7s ease forwards;
+}
+@keyframes chapterIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  15%,
+  70% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}

@@ -91,7 +91,7 @@ function createWhaleSound(output) {
     portamento: 0.6,
     envelope: { attack: 1, decay: 0.4, sustain: 0.8, release: 3 }
   })
-  synth.volume.value = 2
+  synth.volume.value = -1
 
   synth.chain(moan, filter, tremolo, reverb, output)
 
@@ -241,7 +241,7 @@ function initVoicesUI() {
   VOICES.forEach((voice) => {
     const panel = document.getElementById(`panel-${voice.key}`)
 
-    createToggleButtonSet($('.wave-box', panel), {
+    voice.waveSet = createToggleButtonSet($('.wave-box', panel), {
       items: WAVES,
       activeIndex: WAVES.findIndex((wave) => wave.type === voice.wave),
       onSelect: (index) =>
@@ -271,6 +271,7 @@ function initVoicesUI() {
         max: 7,
         step: 1,
         value: voice.degrees[index],
+        format: (value) => `${noteFor(voice.root, value).toNote()} · ${value}`,
         onChange: (value) => (voice.degrees[index] = value)
       })
 
@@ -279,7 +280,11 @@ function initVoicesUI() {
       voice.sliders.push(slider)
     })
 
-    voice.knobs.forEach((knob) => createKnob($('.knobs', panel), knob))
+    // ручки по названию — ими управляет композиция (story.js)
+    voice.controls = {}
+    voice.knobs.forEach((knob) => {
+      voice.controls[knob.label] = createKnob($('.knobs', panel), knob)
+    })
   })
 }
 

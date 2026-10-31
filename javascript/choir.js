@@ -10,6 +10,7 @@ const choir = {
   groupLevels: [0, 0, 0],
   voices: [],
   sliders: [],
+  controls: {}, // anxiety, expanse, in time
   driftDegree: 2, // общая ступень, вокруг которой поёт хор
   driftHold: 0, // сколько тактов держим текущую ступень
   bus: null,
@@ -61,7 +62,8 @@ function initChoir() {
     choir.driftDegree = clamp(choir.driftDegree + pick([-2, -1, 0, 1, 2]), 0, 5)
   }, '1m').start(0)
 
-  CHOIR.forEach(createChoirVoice)
+  // Голоса хора создаются при первом подъёме ползунка своей группы (startChoirGroup):
+  // шесть молчащих голосов заранее зря нагружали бы звуковой движок
 }
 
 function syncChoirToTempo() {
@@ -113,11 +115,15 @@ function createChoirVoice(settings) {
 
   // Вибрато, медленный дрейф высоты и дрейф по панораме.
   // Запускаются вместе с голосом: пока хор молчит, процессор на них не тратится
+  // Вибрато: LFO ±1 → громкость-«глубина» в центах → высота голоса.
+  // Глубину меняет ползунок anxiety — плавно, через glide, без щелчков
   const vibrato = new Tone.LFO({
     frequency: randomBetween(5, 5.8),
-    min: -18,
-    max: 18
-  }).connect(oscillator.detune)
+    min: -1,
+    max: 1
+  })
+  const vibratoDepth = new Tone.Gain(18 + 60 * choir.alarm)
+  vibrato.chain(vibratoDepth, oscillator.detune)
   const drift = new Tone.LFO({
     frequency: randomBetween(0.5, 1),
     min: -9,
@@ -134,6 +140,7 @@ function createChoirVoice(settings) {
     oscillator,
     breath,
     vibrato,
+    vibratoDepth,
     modulators: [vibrato, drift, wander],
     group: settings.group,
     started: false
@@ -190,7 +197,8 @@ function createChoirVoice(settings) {
     envelope.attack = cry ? 0.05 : randomBetween(0.3, 0.7)
 
     if (cry) {
-      oscillator.frequency.setValueAtTime(frequency, time)
+      oscillator.frequency.cancelAndHoldAtTime(time)
+      oscillator.frequency.exponentialRampToValueAtTime(frequency, time + 0.04)
       oscillator.frequency.exponentialRampToValueAtTime(
         frequency * 2.2,
         time + 0.7
@@ -211,6 +219,12 @@ function createChoirVoice(settings) {
 
 // Генераторы группы запускаются один раз, дальше управляем только громкостью
 function startChoirGroup(group) {
+  if (!choir.voices.some((voice) => voice.group === group)) {
+    CHOIR.filter((settings) => settings.group === group).forEach(
+      createChoirVoice
+    )
+  }
+
   choir.voices
     .filter((voice) => voice.group === group && !voice.started)
     .forEach((voice) => {
@@ -243,8 +257,7 @@ function setChoirAlarm(level) {
   glide(choir.distortion.wet, level * level * 0.5)
 
   choir.voices.forEach((voice) => {
-    voice.vibrato.min = -(18 + 60 * level)
-    voice.vibrato.max = 18 + 60 * level
+    glide(voice.vibratoDepth.gain, 18 + 60 * level, 0.1)
   })
 }
 
@@ -266,20 +279,20 @@ function initChoirUI() {
     })
   )
 
-  createSlider(box, {
+  choir.controls.anxiety = createSlider(box, {
     label: 'anxiety',
     hint: 'тревога: хор срывается на крик',
     className: 'thin',
     onChange: setChoirAlarm
   })
-  createSlider(box, {
+  choir.controls.expanse = createSlider(box, {
     label: 'expanse',
     hint: 'простор: пещера и эхо хора',
     className: 'thin',
     value: 0.6,
     onChange: setChoirExpanse
   })
-  createSlider(box, {
+  choir.controls.inTime = createSlider(box, {
     label: 'in time',
     hint: 'насколько хор уступает удару depth (0 — не уступает)',
     className: 'thin',
